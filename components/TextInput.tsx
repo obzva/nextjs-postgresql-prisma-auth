@@ -1,9 +1,12 @@
 import React from "react";
+import { FieldError } from "react-hook-form";
 
 type Props = {
   labelText: string;
   placeholder: string;
   type?: React.InputHTMLAttributes<HTMLInputElement>["type"];
+  error?: FieldError;
+  helperText?: string;
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
@@ -21,6 +24,13 @@ export default function TextInput(props: Props) {
         value={props.value}
         onChange={props.onChange}
       />
+      {props.error ? (
+        <p className={"text-red-500 text-sm"}>{`*${props.error.message}`}</p>
+      ) : (
+        props.helperText && (
+          <p className={"text-gray-500 text-sm"}>{props.helperText}</p>
+        )
+      )}
     </div>
   );
 }
