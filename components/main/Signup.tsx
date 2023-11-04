@@ -29,14 +29,13 @@ export default function Signup() {
   });
 
   async function handleFormSubmit(values: zod.infer<typeof signupSchema>) {
-    const { statusText } = await signup({
+    const { status } = await signup({
       username: values.username,
       email: values.email,
       password: values.password,
     });
-    console.log(statusText);
 
-    if (statusText === "Created") {
+    if (status === 201) {
       await push("/sign-in");
     } else {
       window.alert("Registration failed!");
