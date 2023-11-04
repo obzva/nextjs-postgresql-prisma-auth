@@ -1,15 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "../../../lib/db";
+import prisma from "../../../prisma/initialize";
 import { Prisma } from "@prisma/client";
 import { hash } from "bcrypt";
-import * as Zod from "zod";
+import * as zod from "zod";
 
 const HASH_SALT = 10;
 
-const userSchema = Zod.object({
-  username: Zod.string().min(1, "Username is required").max(100),
-  email: Zod.string().min(1, "Email is required").email("Invalid email"),
-  password: Zod.string()
+const userSchema = zod.object({
+  username: zod.string().min(1, "Username is required").max(100),
+  email: zod.string().min(1, "Email is required").email("Invalid email"),
+  password: zod
+    .string()
     .min(1, "Password is required")
     .min(8, "Password must be longer than 8 characters"),
 });
@@ -23,7 +24,7 @@ export async function POST(req: NextRequest) {
         {
           message: "Invalid request body",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -35,7 +36,7 @@ export async function POST(req: NextRequest) {
         {
           message: "User with this email already exists.",
         },
-        { status: 409 }
+        { status: 409 },
       );
     }
 
@@ -45,7 +46,7 @@ export async function POST(req: NextRequest) {
         {
           message: "User with this username already exists.",
         },
-        { status: 409 }
+        { status: 409 },
       );
     }
 
@@ -57,12 +58,12 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       { user: rest, message: "User created successfully!" },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     return NextResponse.json(
       { message: "An error occurred while processing your request." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
