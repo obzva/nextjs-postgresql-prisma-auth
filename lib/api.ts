@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
-const axiosInstance = axios.create({
+const userApi = axios.create({
   baseURL: "/api/user",
   headers: {
     "Content-Type": "application/json",
@@ -28,7 +28,7 @@ export async function signup(
   body: SignupBody,
 ): Promise<AxiosResponse<SignupData>> {
   try {
-    return await axiosInstance.post("/", body);
+    return await userApi.post("/", body);
   } catch (error) {
     throw new Error("Error occurred while requesting signup API");
   }
