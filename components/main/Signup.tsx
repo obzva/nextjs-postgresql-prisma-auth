@@ -34,6 +34,7 @@ export default function Signup() {
       email: values.email,
       password: values.password,
     });
+    console.log(statusText);
 
     if (statusText === "Created") {
       await push("/sign-in");
