@@ -9,10 +9,10 @@ import TextInput from "@/components/TextInput";
 import Button from "@/components/Button";
 import React from "react";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 export default function Signin() {
   const { push } = useRouter();
-
   const { handleSubmit, control } = useForm<zod.infer<typeof signinSchema>>({
     resolver: zodResolver(signinSchema),
     defaultValues: {
@@ -22,7 +22,17 @@ export default function Signin() {
   });
 
   async function handleFormSubmit(values: zod.infer<typeof signinSchema>) {
-    console.table(values);
+    const data = await signIn("credentials", {
+      redirect: false,
+      email: values.email,
+      password: values.password,
+    });
+    if (data?.error) {
+      window.alert("Sign-In Failed!");
+      console.error(data.error);
+      return;
+    }
+    push("/user");
   }
 
   return (
