@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "../Button";
-import TextInput from "../TextInput";
+import Button from "./Button";
+import TextInput from "./TextInput";
 import React from "react";
 import * as zod from "zod";
 import { Controller, useForm } from "react-hook-form";
@@ -31,7 +31,7 @@ export default function Signup() {
     });
 
     if (status === 201) {
-      await push("/sign-in");
+      await push("/");
     } else {
       window.alert("Registration failed!");
     }
