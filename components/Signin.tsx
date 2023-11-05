@@ -12,7 +12,7 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 
 export default function Signin() {
-  const { push } = useRouter();
+  const { push, refresh } = useRouter();
   const { handleSubmit, control } = useForm<zod.infer<typeof signinSchema>>({
     resolver: zodResolver(signinSchema),
     defaultValues: {
@@ -32,6 +32,7 @@ export default function Signin() {
       console.error(data.error);
       return;
     }
+    refresh();
     push("/user");
   }
 
