@@ -1,5 +1,13 @@
 import * as zod from "zod";
 
+export const signinSchema = zod.object({
+  email: zod.string().min(1, "Email is required").email("Invalid email"),
+  password: zod
+    .string()
+    .min(1, "Password is required")
+    .min(8, "Password must have than 8 characters"),
+});
+
 export const signupSchema = zod
   .object({
     username: zod.string().min(1, "Username is required").max(100),
