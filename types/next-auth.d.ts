@@ -1,3 +1,5 @@
+import NextAuth from "next-auth/src";
+
 declare module "next-auth" {
   interface User {
     username: string;
