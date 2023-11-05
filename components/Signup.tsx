@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema } from "@/lib/form-schema";
 import { signup } from "@/lib/api";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Signup() {
   const { push } = useRouter();
@@ -85,7 +86,6 @@ export default function Signup() {
             />
           )}
         />
-
         <Controller
           control={control}
           name={"reEnterPassword"}
@@ -102,6 +102,13 @@ export default function Signup() {
         />
       </div>
       <Button buttonType={"submit"} buttonText="Sign Up" />
+      <div className={"w-full border-b-slate-400 border-b-2"}></div>
+      <div className={"flex justify-between items-center px-4"}>
+        <p className={"text-sm text-gray-500"}>{"Already have an account?"}</p>
+        <Link href={"/"} className={"text-slate-800 font-bold"}>
+          Sign In
+        </Link>
+      </div>
     </form>
   );
 }
